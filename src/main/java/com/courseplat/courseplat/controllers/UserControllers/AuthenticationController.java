@@ -1,4 +1,4 @@
-package com.courseplat.courseplat.controllers;
+package com.courseplat.courseplat.controllers.UserControllers;
 
 import com.courseplat.courseplat.domain.user.AuthenticationDTO;
 import com.courseplat.courseplat.domain.user.User;
@@ -33,19 +33,21 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
 
         try {
+            System.out.println(data.email());
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(),  data.password());
 
-            var auth  = authenticationManager.authenticate(usernamePassword);
+            var auth  = this.authenticationManager.authenticate(usernamePassword);
 
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body((User) auth.getPrincipal());
         } catch (AuthenticationException e) {
 
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+
         }
 
     }

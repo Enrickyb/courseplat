@@ -1,5 +1,4 @@
-package Services;
-
+package com.courseplat.courseplat.Services;
 
 import com.courseplat.courseplat.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
