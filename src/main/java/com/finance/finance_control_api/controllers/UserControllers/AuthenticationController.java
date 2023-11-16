@@ -1,5 +1,6 @@
 package com.finance.finance_control_api.controllers.UserControllers;
 
+import com.finance.finance_control_api.Services.TokenService;
 import com.finance.finance_control_api.domain.user.AuthenticationDTO;
 import com.finance.finance_control_api.domain.user.User;
 import com.finance.finance_control_api.domain.user.UserRepository;
@@ -26,9 +27,8 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
-    private PasswordEncoder PasswordEncoder;
+    private TokenService tokenService;
 
 
     @PostMapping("/login")
@@ -40,8 +40,10 @@ public class AuthenticationController {
 
             var auth  = this.authenticationManager.authenticate(usernamePassword);
 
+            var token = tokenService.generateToken((User) auth.getPrincipal());
 
-            return ResponseEntity.ok().body((User) auth.getPrincipal());
+
+            return ResponseEntity.ok().body(token);
         } catch (AuthenticationException e) {
 
             System.out.println(e.getMessage());
@@ -50,7 +52,6 @@ public class AuthenticationController {
         }
 
     }
-
 
 
     @PostMapping("/register")

@@ -10,10 +10,7 @@ import com.finance.finance_control_api.domain.transactions.Category_Company.Cate
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -58,5 +55,25 @@ public class CompanyController {
         }
 
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getCompanies() {
+        try{
+            return ResponseEntity.ok().body(companyRepository.findAll());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getCompany(@PathVariable String id) {
+        try{
+            return ResponseEntity.ok().body(companyRepository.findById(id));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+
 
 }

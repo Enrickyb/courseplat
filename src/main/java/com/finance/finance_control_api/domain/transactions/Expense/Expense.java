@@ -18,7 +18,7 @@ public class Expense {
     private String company_id;
     private String title;
     private String description;
-    private String user_id;
+    private String userId;
     private float value;
     private String date;
 
@@ -27,7 +27,7 @@ public class Expense {
 
         this.title = title;
         this.description = description;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.company_id = company_id;
         this.value = value;
         this.date = date;
@@ -43,7 +43,7 @@ public class Expense {
                 ", company_id='" + company_id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", user_id='" + user_id + '\'' +
+                ", user_id='" + userId + '\'' +
                 ", value='" + value + '\'' +
                 ", date='" + date + '\'' +
                 '}';

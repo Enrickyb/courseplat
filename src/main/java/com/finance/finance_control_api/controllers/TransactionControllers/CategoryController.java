@@ -41,5 +41,14 @@ public class CategoryController {
         }
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getCategory(@PathVariable String id) {
+        try{
+            return ResponseEntity.ok().body(categoryRepository.findById(id));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
 
 }
